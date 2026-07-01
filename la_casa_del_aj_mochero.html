@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Casa del Ají Mochero | Sabor Ancestral Mochica</title>
+
+    <!-- Aquí va tu Favicon -->
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/Dfdc3d0k/ISOTIPO.png">
+
+    <!-- Tailwind CSS para estilos rápidos y responsivos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Montserrat para texto general y Marcellus para títulos elegantes que combinan con la marca -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Marcellus&display=swap" rel="stylesheet">
+
+    <!-- Configuración personalizada de Tailwind basada en el manual de marca -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mochero: {
+                            dark: '#3b1f09',    // Extraído del manual: Marrón oscuro principal
+                            brown: '#9c4314',   // Extraído del manual: Marrón óxido/terracota
+                            gold: '#d5962b',    // Extraído del manual: Mostaza/Dorado
+                            green: '#2b4b32',   // Extraído del manual: Verde oscuro
+                            light: '#f8f2e6',   // Extraído del manual: Crema/Beige de fondo
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Marcellus', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos generales */
+        body {
+            background-color: #f8f2e6; /* Fondo crema oficial del manual de marca */
+            color: #3b1f09;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Para que el footer se quede abajo si hay poco contenido */
+        }
+
+        /* Estilo para el contenedor principal de las "subpáginas" */
+        main {
+            flex-grow: 1;
+        }
+
+        /* Clase para ocultar secciones suavemente */
+        .section-hidden {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        /* Clase para mostrar secciones suavemente */
+        .section-visible {
+            display: block;
+            opacity: 1;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Efectos hover personalizados para el menú */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #d49a36; /* mochero-gold */
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .nav-link.active {
+            color: #d49a36;
+            font-weight: 600;
+        }
+
+        /* Imágenes placeholder sutiles para que combine con el diseño */
+        .img-placeholder {
+            background-color: #e2dcd2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8b4513;
+            font-size: 1.5rem;
+        }
+
+        /* Aplicando un "zoom out" general a la página usando la propiedad zoom
+           (Soportado en Chrome, Safari, Edge y las últimas versiones de Firefox) */
+        .zoom-90 {
+            zoom: 0.9;
+        }
+        
+        /* Estilos para el overlay del carrito */
+        .cart-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+        }
+        
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800 zoom-90">
+
+    <!-- HEADER PERMANENTE -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-25">
+                
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="showSection('inicio')">
+                    <!-- Usando la imagen proporcionada -->
+                    <img src="https://i.postimg.cc/PxvqH4TN/Documento.png" alt="Logo La Casa del Ají Mochero" class="h-28 w-auto object-contain">
+                </div>
+
+                <!-- Menú de Navegación (Desktop) -->
+                <nav class="hidden md:flex space-x-6 lg:space-x-8">
+                    <button onclick="showSection('inicio')" id="nav-inicio" class="nav-link active text-mochero-dark hover:text-mochero-gold font-medium px-2 py-2 text-md lg:text-lg">Inicio</button>
+                    <button onclick="showSection('historia')" id="nav-historia" class="nav-link text-mochero-dark hover:text-mochero-gold font-medium px-2 py-2 text-md lg:text-lg">La Historia</button>
+                    <button onclick="showSection('nosotros')" id="nav-nosotros" class="nav-link text-mochero-dark hover:text-mochero-gold font-medium px-2 py-2 text-md lg:text-lg">Nosotros</button>
+                    <button onclick="showSection('encuentranos')" id="nav-encuentranos" class="nav-link text-mochero-dark hover:text-mochero-gold font-medium px-2 py-2 text-md lg:text-lg">Encuéntranos</button>
+                    <button onclick="showSection('recorridos')" id="nav-recorridos" class="nav-link text-mochero-dark hover:text-mochero-gold font-medium px-2 py-2 text-md lg:text-lg">Recorridos</button>
+                    <button onclick="showSection('productos')" id="nav-productos" class="nav-link text-mochero-dark hover:text-mochero-gold font-medium px-2 py-2 text-md lg:text-lg">Productos</button>
+                </nav>
+
+                <!-- Iconos de Acción (Carrito y Menú Móvil) -->
+                <div class="flex items-center space-x-6">
+                    <!-- Botón de Carrito -->
+                    <button onclick="toggleCart()" class="relative text-mochero-dark hover:text-mochero-gold transition duration-300 transform hover:scale-110">
+                        <i class="fas fa-shopping-cart text-2xl"></i>
+                        <!-- Badge contador (se mostrará por JS) -->
+                        <span id="cart-count" class="hidden absolute -top-2 -right-3 bg-mochero-brown text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full shadow-md transition-transform duration-200">0</span>
+                    </button>
+
+                    <!-- Botón Menú Móvil -->
+                    <div class="md:hidden flex items-center">
+                        <button id="mobile-menu-btn" class="text-mochero-dark hover:text-mochero-gold focus:outline-none">
+                            <i class="fas fa-bars text-2xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú desplegable Móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-mochero-light border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-inner">
+                <button onclick="showSection('inicio'); closeMobileMenu()" class="block w-full text-left px-3 py-2 text-mochero-dark hover:bg-mochero-gold hover:text-white rounded-md font-medium">Inicio</button>
+                <button onclick="showSection('historia'); closeMobileMenu()" class="block w-full text-left px-3 py-2 text-mochero-dark hover:bg-mochero-gold hover:text-white rounded-md font-medium">La Historia</button>
+                <button onclick="showSection('nosotros'); closeMobileMenu()" class="block w-full text-left px-3 py-2 text-mochero-dark hover:bg-mochero-gold hover:text-white rounded-md font-medium">Nosotros</button>
+                <button onclick="showSection('encuentranos'); closeMobileMenu()" class="block w-full text-left px-3 py-2 text-mochero-dark hover:bg-mochero-gold hover:text-white rounded-md font-medium">Encuéntranos</button>
+                <button onclick="showSection('recorridos'); closeMobileMenu()" class="block w-full text-left px-3 py-2 text-mochero-dark hover:bg-mochero-gold hover:text-white rounded-md font-medium">Recorridos</button>
+                <button onclick="showSection('productos'); closeMobileMenu()" class="block w-full text-left px-3 py-2 text-mochero-dark hover:bg-mochero-gold hover:text-white rounded-md font-medium">Productos</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL (Las "Subpáginas") -->
+    <main class="w-full flex-grow">
+
+        <!-- SECCIÓN: INICIO (Portada) -->
+        <section id="inicio" class="section-visible relative w-full">
+            <!-- Hero banner con imagen de fondo -->
+            <div class="relative h-[70vh] flex items-center justify-center overflow-hidden bg-cover bg-center" style="background-image: url('https://i.postimg.cc/MZdQctZ6/503693799-18271610689302344-8251279958027929130-n.jpg');">
+                <!-- Capa oscura (Overlay) usando el marrón de tu marca al 75% para asegurar que el texto sea muy fácil de leer -->
+                <div class="absolute inset-0 bg-mochero-dark/75"></div>
+                
+                <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+                    <h1 class="font-serif text-5xl md:text-7xl text-mochero-gold mb-6 tracking-wide shadow-black drop-shadow-lg">Sabor Ancestral Mochica</h1>
+                    <p class="text-white text-lg md:text-2xl mb-8 font-light">Descubre la tradición, el rescate y el auténtico sabor del Ají Mochero.</p>
+                    <button onclick="showSection('recorridos')" class="bg-mochero-gold hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 shadow-lg">
+                        Reserva un Recorrido
+                    </button>
+                </div>
+            </div>
+            
+            <div class="max-w-5xl mx-auto py-16 px-4 text-center">
+                <h2 class="font-serif text-3xl text-mochero-brown mb-6">Bienvenidos a nuestra casa</h2>
+                <p class="text-gray-600 text-lg leading-relaxed max-w-4xl mx-auto">
+                    <strong class="text-mochero-dark font-medium italic">"Disfrute el contacto con la naturaleza, visite y conozca nuestros cultivos ANCESTRALES MOCHE que se conservan y cultivan."</strong><br><br>
+                    Somos guardianes de un legado milenario. En La Casa del Ají Mochero nos dedicamos a rescatar, cultivar y transformar el oro picante de la cultura Mochica. Explora nuestra historia, conoce a nuestra gente y prueba nuestros productos únicos.
+                </p>
+            </div>
+
+            <!-- Sección de Testimonios integrada en Inicio -->
+            <div class="bg-mochero-light/50 py-16 border-t border-mochero-gold/20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="font-serif text-3xl md:text-4xl text-mochero-dark mb-4">Lo que dicen nuestros visitantes</h2>
+                        <div class="h-1 w-16 bg-mochero-gold mx-auto rounded-full"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Testimonio 1 -->
+                        <div class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 relative">
+                            <i class="fas fa-quote-left text-4xl text-mochero-gold/20 absolute top-6 left-6"></i>
+                            <div class="relative z-10">
+                                <div class="flex text-mochero-gold mb-4">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <a href="https://maps.app.goo.gl/g4NujYDQNboHrkQM9" target="_blank" rel="noopener noreferrer" class="block cursor-pointer hover:opacity-70 transition-opacity">
+                                    <p class="text-gray-600 italic mb-6">"Hermoso lugar, y también venden los productos derivados del ají mochero 🤤🤤🤤🤤 son excelentes y baratos, así apoyamos a los mocheros ✌️"</p>
+                                </a>                                
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-mochero-brown rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">K</div>
+                                    <div>
+                                        <h4 class="font-serif font-bold text-mochero-dark">Karen Minchola Gutierrez</h4>
+                                        <p class="text-xs text-gray-500">Cliente de Productos</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonio 2 -->
+                        <div class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 relative transform md:-translate-y-4">
+                            <i class="fas fa-quote-left text-4xl text-mochero-gold/20 absolute top-6 left-6"></i>
+                            <div class="relative z-10">
+                                <div class="flex text-mochero-gold mb-4">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <a href="https://maps.app.goo.gl/NVQW9kLYMAkRJRiz7" target="_blank" rel="noopener noreferrer" class="block cursor-pointer hover:opacity-70 transition-opacity">
+                                    <p class="text-gray-600 italic mb-6">"Estuvimos en una charla donde explicaron sobre el cultivo de este ají y las propuestas que tienen sobre otros cultivos, rescatando algunas variedades propias de Moche. Muy bonito. Venden las plantitas, venden algunas otras frutas también."</p>
+                                </a>
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-mochero-green rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">V</div>
+                                    <div>
+                                        <h4 class="font-serif font-bold text-mochero-dark">Vicente Córdova</h4>                                        
+                                        <p class="text-xs text-gray-500">Visitante del Tour</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonio 3 -->
+                        <div class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 relative">
+                            <i class="fas fa-quote-left text-4xl text-mochero-gold/20 absolute top-6 left-6"></i>
+                            <div class="relative z-10">
+                                <div class="flex text-mochero-gold mb-4">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <a href="https://maps.app.goo.gl/3LhETSyGqJc3KkMb8" target="_blank" rel="noopener noreferrer" class="block cursor-pointer hover:opacity-70 transition-opacity">
+                                    <p class="text-gray-600 italic mb-6">"Realizamos una visita para evidenciar el potencial turístico del lugar y nos quedamos maravillados con la explica ión facilitada en el lugar, a pesar que no realizamos el full day, todo apunta a que será una muy buena experiencia vivencial."</p>
+                                </a>
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-mochero-dark rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">M</div>
+                                    <div>
+                                        <h4 class="font-serif font-bold text-mochero-dark">Martín Henderson Fartolino</h4>                                        
+                                        <p class="text-xs text-gray-500">Visita Universitaria</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: LA HISTORIA -->
+        <section id="historia" class="section-hidden max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="font-serif text-4xl md:text-5xl text-mochero-dark mb-4">Nuestra Historia</h2>
+                <div class="h-1 w-24 bg-mochero-green mx-auto rounded-full"></div>
+                <p class="mt-4 text-gray-600 text-lg">El camino para devolverle a la campiña su mayor tesoro.</p>
+            </div>
+
+            <!-- Mensaje de "Próximamente" -->
+            <div class="flex flex-col items-center justify-center py-8 px-4 text-center">
+                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-mochero-light max-w-2xl w-full mx-auto">
+                    <i class="fas fa-hourglass-half text-5xl text-mochero-gold mb-6 animate-pulse"></i>
+                    <h3 class="font-serif text-3xl font-bold text-mochero-dark mb-4">¡Pronto conocerás más sobre nosotros!</h3>
+                    <p class="text-gray-600 text-lg font-sans">
+                        Estamos preparando este espacio para contarte cada detalle de nuestro legado y cómo le devolvimos a la campiña su mayor tesoro. ¡Mantente atento!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: NOSOTROS (Fotos y equipo) -->
+        <section id="nosotros" class="section-hidden bg-white py-16 mt-8 border-y border-mochero-light">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="font-serif text-4xl md:text-5xl text-mochero-dark mb-4">Fotos de Nosotros</h2>
+                    <p class="text-mochero-brown max-w-2xl mx-auto text-lg font-medium">El detrás de escena, nuestra materia prima y la gran labor de nuestro equipo.</p>
+                </div>
+
+                <!-- Galería estilo Masonry o Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Tarjeta 1 -->
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg aspect-square border-2 border-mochero-light">
+                        <img src="https://placehold.co/600x600/9c4314/ffffff?text=El+Detrás\nde+Escena" alt="Trabajador en el campo" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                            <div class="p-6">
+                                <h3 class="text-white text-xl font-serif font-bold">Cosecha manual</h3>
+                                <p class="text-gray-200 text-sm font-sans">Seleccionando los mejores frutos.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tarjeta 2 -->
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg aspect-square border-2 border-mochero-light">
+                        <img src="https://i.postimg.cc/BbwPw7CB/654328091-903849805863022-8935952294721021101-n.jpg" alt="Ajíes mocheros" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                            <div class="p-6">
+                                <h3 class="text-white text-xl font-serif font-bold">Oro Mochica</h3>
+                                <p class="text-gray-200 text-sm font-sans">Nuestra materia prima fresca.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tarjeta 3 -->
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg aspect-square border-2 border-mochero-light">
+                        <img src="https://placehold.co/600x600/d5962b/ffffff?text=Nuestra\nLabor" alt="Proceso de elaboración" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                            <div class="p-6">
+                                <h3 class="text-white text-xl font-serif font-bold">Labor en taller</h3>
+                                <p class="text-gray-200 text-sm font-sans">Preparando nuestras recetas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- NUEVA SECCIÓN: ENCUÉNTRANOS (MAPA INTERACTIVO) -->
+        <!-- ============================================== -->
+        <section id="encuentranos" class="section-hidden max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="font-serif text-4xl md:text-5xl text-mochero-dark mb-4">Encuéntranos</h2>
+                <div class="h-1 w-24 bg-mochero-green mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-700 max-w-3xl mx-auto text-lg mb-8">
+                    Campiña de Moche, ramal Sum<br>
+                    Referencia: Frente al restaurante turístico La Soledad.<br>
+                    Moche, La Libertad, Perú.<br><br>
+                    <span class="font-semibold text-mochero-brown">Venir con previa reservación</span>
+                </p>
+            </div>
+
+            <!-- Contenedor del Mapa Interactivo (Click = Abrir en App) -->
+            <div class="relative w-full max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white group h-[400px] md:h-[500px]">
+                
+                <!-- Capa invisible sobre el iframe que capta el click -->
+                <!-- URL directa a las coordenadas / local de testimonios en Maps -->
+                <a href="https://www.google.com/maps/place/LA+CASA+DEL+AJI+MOCHERO/@-8.1480389,-79.0044207,17z/data=!3m1!4b1!4m6!3m5!1s0x91ad1771d7f9acab:0x185b2731efc3bfc4!8m2!3d-8.1480442!4d-79.0018458!16s%2Fg%2F11nfzj1g3n?entry=ttu&g_ep=EgoyMDIyMDYyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="absolute inset-0 z-10 bg-black/5 hover:bg-black/20 transition-all duration-300 flex items-center justify-center cursor-pointer">
+                    <!-- Botón Flotante de Acción que aparece al hacer hover en PC, y se nota suave en móvil -->
+                    <div class="bg-mochero-dark text-white px-8 py-4 rounded-full font-bold shadow-2xl transform md:translate-y-4 md:opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 flex items-center gap-3">
+                        <i class="fas fa-location-arrow text-xl"></i>
+                        <span>Abrir en Google Maps</span>
+                    </div>
+                </a>
+                
+                <!-- Iframe visual (pointer-events-none asegura que el click lo reciba la etiqueta <a> superior) -->
+                <iframe src="https://maps.google.com/maps?q=-8.1480442,-79.0018458&hl=es&z=17&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="pointer-events-none object-cover"></iframe>
+            </div>
+            
+            <div class="text-center mt-6 text-sm text-gray-500 flex items-center justify-center gap-2">
+                <i class="fas fa-hand-pointer text-mochero-gold animate-bounce"></i> 
+                <span>Toca el mapa para obtener la ruta y abrir la aplicación de GPS.</span>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: RECORRIDOS -->
+        <section id="recorridos" class="section-hidden max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 border-t border-mochero-light">
+            <div class="text-center mb-12">
+                <h2 class="font-serif text-4xl md:text-5xl text-mochero-dark mb-4">Los Recorridos</h2>
+                <div class="h-1 w-24 bg-mochero-brown mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-700 max-w-3xl mx-auto text-lg">Información detallada e imágenes para promocionar nuestro tour. Sumérgete en la campiña, camina entre los cultivos y descubre los secretos de nuestra labor.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-mochero-light">
+                <div class="md:flex">
+                    <div class="md:shrink-0 md:w-1/2 relative">
+                        <img class="h-full w-full object-cover md:absolute inset-0" src="https://i.postimg.cc/v8nxJWYy/Recorrido.jpg" alt="Turistas en la campiña">
+                        <div class="absolute top-4 right-4 bg-mochero-gold text-white font-bold py-1 px-3 rounded-full text-sm font-sans">
+                            Tour Más Popular
+                        </div>
+                    </div>
+                    <div class="p-8 md:w-1/2 flex flex-col justify-center">
+                        <div class="uppercase tracking-wide text-sm text-mochero-gold font-semibold mb-1">Ruta Agroturística</div>
+                        <h3 class="block mt-1 text-2xl leading-tight font-serif text-mochero-dark hover:underline">Del Campo a la Mesa</h3>
+                        <p class="mt-4 text-gray-600 mb-5">
+                            Un recorrido de 3 horas donde aprenderás sobre la historia Moche, participarás en la cosecha (según temporada) y finalizarás con una cata exclusiva de todos nuestros productos derivados del ají mochero.
+                        </p>
+                        
+                        <!-- Frase de apoyo al legado -->
+                        <div class="bg-mochero-gold/10 border-l-4 border-mochero-gold p-4 mb-5 rounded-r-lg shadow-sm">
+                            <p class="text-mochero-dark font-medium italic text-sm">
+                                "Al ir a nuestros recorridos nos ayudas a seguir manteniendo nuestro legado ancestral y compartiéndolo con el mundo."
+                            </p>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="flex items-center text-gray-700">
+                                <i class="far fa-clock text-mochero-brown w-6 text-center mr-2"></i>
+                                <span>Duración: 3 Horas</span>
+                            </div>
+                            <div class="flex items-center text-gray-700">
+                                <i class="fas fa-users text-mochero-brown w-6 text-center mr-2"></i>
+                                <span>Grupos: Min 2 - Max 15 personas</span>
+                            </div>
+                            <div class="flex items-center text-gray-700">
+                                <i class="fas fa-calendar-alt text-mochero-brown w-6 text-center mr-2"></i>
+                                <span>Días: Martes a Domingo (Previa reserva)</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <a href="https://wa.me/51995594882" target="_blank" class="inline-block bg-mochero-dark hover:bg-mochero-brown text-white font-semibold py-3 px-6 rounded-lg transition duration-300 w-full md:w-auto shadow-md text-center">
+                                <i class="fab fa-whatsapp mr-2"></i> Reservar por WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: PRODUCTOS -->
+        <section id="productos" class="section-hidden max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 border-t border-mochero-light mt-8">
+            <div class="text-center mb-12">
+                <h2 class="font-serif text-4xl md:text-5xl text-mochero-dark mb-4">Nuestros Productos</h2>
+                <div class="h-1 w-24 bg-mochero-gold mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-700 max-w-2xl mx-auto text-lg">Un espacio visual exclusivo para el licor de ají mochero, las chocotejas, el polvito y todo lo que fabricamos con orgullo.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Producto 1: Licor -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-mochero-light overflow-hidden flex flex-col group">
+                    <div class="h-64 bg-gray-100 relative overflow-hidden flex items-center justify-center">
+                        <img src="https://i.postimg.cc/CKYhVVjc/Chat-GPT-Image-27-jun-2026-00-26-03.png" alt="Licor de Ají Mochero" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-2 left-2 bg-mochero-green text-white text-xs font-bold px-2 py-1 rounded shadow">Exclusivo</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="font-serif text-xl font-bold text-mochero-dark mb-1">Licor de Ají Mochero</h3>
+                        <p class="text-mochero-brown font-bold text-lg mb-2">S/ 30.00</p>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">Un destilado suave con el aroma frutal característico del ají y un final ligeramente cálido. Perfecto como digestivo.</p>
+                        <button onclick="addToCart('p1', 'Licor de Ají Mochero', 30.00, 'https://i.postimg.cc/CKYhVVjc/Chat-GPT-Image-27-jun-2026-00-26-03.png')" class="mt-auto bg-mochero-dark text-white hover:bg-mochero-brown font-semibold py-2 px-4 rounded transition duration-300 flex items-center justify-center gap-2">
+                            <i class="fas fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Producto 2: Chocotejas -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-mochero-light overflow-hidden flex flex-col group">
+                    <div class="h-64 bg-gray-100 relative overflow-hidden flex items-center justify-center">
+                        <img src="https://i.postimg.cc/ZRwpdHb0/Chat-GPT-Image-27-jun-2026-00-36-55.png" alt="Chocotejas de ají" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="font-serif text-xl font-bold text-mochero-dark mb-1">Chocotejas Mocheras</h3>
+                        <p class="text-mochero-brown font-bold text-lg mb-2">S/ 50.00 <span class="text-xs text-gray-500 font-normal">(Caja x12)</span></p>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">El dulzor del manjar blanco y el chocolate bitter contrastan sorprendentemente con un toque de mermelada de ají mochero.</p>
+                        <button onclick="addToCart('p2', 'Chocotejas Mocheras (Caja x12)', 50.00, 'https://i.postimg.cc/ZRwpdHb0/Chat-GPT-Image-27-jun-2026-00-36-55.png')" class="mt-auto bg-mochero-dark text-white hover:bg-mochero-brown font-semibold py-2 px-4 rounded transition duration-300 flex items-center justify-center gap-2">
+                            <i class="fas fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Producto 3: Polvito -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-mochero-light overflow-hidden flex flex-col group">
+                    <div class="h-64 bg-gray-100 relative overflow-hidden flex items-center justify-center">
+                        <img src="https://i.postimg.cc/s26gPNhw/Chat-GPT-Image-27-jun-2026-00-29-34.png" alt="Polvito de ají" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="font-serif text-xl font-bold text-mochero-dark mb-1">Polvito de Ají</h3>
+                        <p class="text-mochero-brown font-bold text-lg mb-2">S/ 15.00</p>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">Ají deshidratado y molido artesanalmente. Ideal para espolvorear sobre ceviches, guisos o frutas.</p>
+                        <button onclick="addToCart('p3', 'Polvito de Ají', 15.00, 'https://i.postimg.cc/s26gPNhw/Chat-GPT-Image-27-jun-2026-00-29-34.png')" class="mt-auto bg-mochero-dark text-white hover:bg-mochero-brown font-semibold py-2 px-4 rounded transition duration-300 flex items-center justify-center gap-2">
+                            <i class="fas fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Producto 4: Encurtido -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-mochero-light overflow-hidden flex flex-col group">
+                    <div class="h-64 bg-gray-100 relative overflow-hidden flex items-center justify-center">
+                        <img src="https://i.postimg.cc/nrJxsjFB/Chat-GPT-Image-27-jun-2026-14-53-04.png" alt="Encurtido de Ají Mochero" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="font-serif text-xl font-bold text-mochero-dark mb-1">Encurtido de Ají Mochero</h3>
+                        <p class="text-mochero-brown font-bold text-lg mb-2">S/ 18.00</p>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">Conserva que mantiene intacto el ADN y el picor del sabor mochica. Perfecto para acompañar tus comidas diarias.</p>
+                        <button onclick="addToCart('p4', 'Encurtido de Ají Mochero', 18.00, 'https://i.postimg.cc/nrJxsjFB/Chat-GPT-Image-27-jun-2026-14-53-04.png')" class="mt-auto bg-mochero-dark text-white hover:bg-mochero-brown font-semibold py-2 px-4 rounded transition duration-300 flex items-center justify-center gap-2">
+                            <i class="fas fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER PERMANENTE -->
+    <footer class="bg-mochero-dark text-white pt-12 pb-8 border-t-4 border-mochero-green mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                
+                <!-- Logo y Descripción Corta -->
+                <div class="text-center md:text-left flex flex-col items-center md:items-start">
+                    <!-- Versión clara o filtro del logo para el fondo oscuro, aquí usamos texto como alternativa elegante -->
+                    <h2 class="font-serif text-2xl font-bold text-mochero-gold mb-4 tracking-wider">LA CASA DEL AJÍ MOCHERO</h2>
+                    <p class="text-gray-300 text-sm leading-relaxed max-w-xs text-center md:text-left">
+                        Rescatando el sabor ancestral mochica. Tradición, cultura y pasión en cada gota y en cada fruto de nuestra campiña.
+                    </p>
+                </div>
+
+                <!-- Contacto y Ubicación -->
+                <div class="text-center md:text-left">
+                    <h3 class="font-bold text-lg mb-4 text-mochero-light border-b border-gray-600 pb-2 inline-block md:block">Encuéntranos</h3>
+                    <ul class="space-y-4 text-sm text-gray-300">
+                        <li class="flex items-start justify-center md:justify-start">
+                            <i class="fas fa-map-marker-alt w-6 text-mochero-gold mt-1"></i>
+                            <span class="text-left leading-tight">Campiña de Moche, ramal Sum, frente a restaurante turístico La Soledad, Moche, La Libertad, Perú</span>
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start">
+                            <i class="fas fa-phone-alt w-6 text-mochero-gold"></i>
+                            <span>+51 995 594 882</span>
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start">
+                            <i class="fas fa-envelope w-6 text-mochero-gold"></i>
+                            <span>contacto@casadelajimochero.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Redes Sociales y Horario -->
+                <div class="text-center md:text-left">
+                    <h3 class="font-bold text-lg mb-4 text-mochero-light border-b border-gray-600 pb-2 inline-block md:block">Conéctate</h3>
+                    <div class="flex space-x-4 justify-center md:justify-start mb-6">
+                        <a href="https://www.facebook.com/" target="_blank" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white hover:bg-mochero-gold transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/lacasadelajimochero" target="_blank" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white hover:bg-mochero-gold transition duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/" target="_blank" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white hover:bg-mochero-gold transition duration-300">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://wa.me/51995594882" target="_blank" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white hover:bg-green-500 transition duration-300">
+                            <i class="fab fa-whatsapp text-lg"></i>
+                        </a>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-400"><span class="font-semibold text-mochero-light">Horario de atención:</span><br>Mar - Dom: 9:00 AM - 5:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Derechos reservados -->
+            <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400">
+                <p>&copy; 2026 La Casa del Ají Mochero | Velaris Group. Todos los derechos reservados.</p>
+                <div class="mt-2 md:mt-0 space-x-4">
+                    <a href="#" class="hover:text-mochero-gold transition">Términos y Condiciones</a>
+                    <a href="#" class="hover:text-mochero-gold transition">Política de Privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- ESTRUCTURA DEL CARRITO DE COMPRAS LATERAL  -->
+    <!-- ========================================== -->
+    
+    <!-- Overlay Oscuro (Fondo cuando se abre el carrito) -->
+    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 cart-overlay z-50 hidden opacity-0 transition-opacity duration-300"></div>
+    
+    <!-- Panel Lateral del Carrito -->
+    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-white shadow-2xl z-[60] transform translate-x-full transition-transform duration-300 flex flex-col border-l-4 border-mochero-gold">
+        
+        <!-- Header del Carrito -->
+        <div class="flex items-center justify-between p-6 border-b border-gray-200 bg-mochero-light">
+            <h3 class="font-serif text-2xl font-bold text-mochero-dark flex items-center gap-3">
+                <i class="fas fa-shopping-basket text-mochero-gold"></i> Tu Pedido
+            </h3>
+            <button onclick="toggleCart()" class="text-gray-500 hover:text-red-500 transition focus:outline-none bg-white rounded-full w-8 h-8 flex items-center justify-center shadow-sm">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Lista de Productos en el Carrito -->
+        <div id="cart-items" class="flex-grow p-6 overflow-y-auto space-y-4 bg-gray-50">
+            <!-- El contenido se generará dinámicamente con JavaScript -->
+        </div>
+
+        <!-- Footer del Carrito (Total y Botón) -->
+        <div class="p-6 border-t border-gray-200 bg-white shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
+            <div class="flex items-center justify-between mb-4">
+                <span class="font-semibold text-gray-600 text-lg">Total estimado:</span>
+                <span id="cart-total" class="font-bold text-3xl text-mochero-dark font-serif">S/ 0.00</span>
+            </div>
+            
+            <button onclick="checkoutWhatsApp()" class="w-full bg-[#25D366] hover:bg-[#1ebe57] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition duration-300 shadow-lg transform hover:-translate-y-1">
+                <i class="fab fa-whatsapp text-2xl"></i> Comprar por WhatsApp
+            </button>
+            <p class="text-xs text-center text-gray-500 mt-3">Coordinaremos el pago y el envío directamente por chat.</p>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT PARA LA NAVEGACIÓN TIPO SPA Y LÓGICA -->
+    <script>
+        // --- LÓGICA DEL CARRITO DE COMPRAS ---
+        let cart = [];
+
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('cart-overlay');
+            
+            if (drawer.classList.contains('translate-x-full')) {
+                // Abrir carrito
+                drawer.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+                // Pequeño retraso para que aplique la transición de opacidad
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+                updateCartUI(); // Asegurarnos de que la UI esté actualizada al abrir
+            } else {
+                // Cerrar carrito
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0');
+                // Esperar a que termine la animación css para ocultar el overlay
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        function addToCart(id, name, price, img) {
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price, img, quantity: 1 });
+            }
+            
+            updateCartUI();
+            
+            // Efecto visual en el contador del carrito (Pop-up)
+            const countBadge = document.getElementById('cart-count');
+            countBadge.classList.add('scale-150');
+            setTimeout(() => countBadge.classList.remove('scale-150'), 200);
+        }
+
+        function updateQuantity(id, change) {
+            const itemIndex = cart.findIndex(i => i.id === id);
+            
+            if (itemIndex > -1) {
+                cart[itemIndex].quantity += change;
+                
+                // Eliminar producto si la cantidad es 0 o menor
+                if (cart[itemIndex].quantity <= 0) {
+                    cart.splice(itemIndex, 1);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items');
+            const countBadge = document.getElementById('cart-count');
+            const totalEl = document.getElementById('cart-total');
+            
+            container.innerHTML = '';
+            let total = 0;
+            let totalItems = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center text-gray-500 h-full flex flex-col justify-center items-center py-10">
+                        <div class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-shopping-cart text-4xl text-gray-400"></i>
+                        </div>
+                        <p class="font-medium text-lg text-mochero-dark">Tu carrito está vacío</p>
+                        <p class="text-sm mt-1">¡Anímate a probar nuestro sabor ancestral!</p>
+                        <button onclick="toggleCart(); showSection('productos')" class="mt-6 text-mochero-brown font-bold border border-mochero-brown py-2 px-6 rounded-full hover:bg-mochero-brown hover:text-white transition">Ver Catálogo</button>
+                    </div>
+                `;
+            } else {
+                cart.forEach(item => {
+                    const subtotal = item.price * item.quantity;
+                    total += subtotal;
+                    totalItems += item.quantity;
+                    
+                    container.innerHTML += `
+                        <div class="flex items-center gap-4 bg-white p-3 rounded-xl border border-gray-100 shadow-sm relative">
+                            <img src="${item.img}" class="w-20 h-20 object-cover rounded-lg border border-gray-100">
+                            <div class="flex-1 pr-6">
+                                <h4 class="font-bold text-sm text-mochero-dark leading-tight mb-1">${item.name}</h4>
+                                <p class="text-mochero-brown font-bold text-sm">S/ ${item.price.toFixed(2)}</p>
+                                
+                                <div class="flex items-center gap-3 mt-2 bg-mochero-light w-fit rounded-lg px-2 py-1 border border-gray-200">
+                                    <button onclick="updateQuantity('${item.id}', -1)" class="w-6 h-6 flex items-center justify-center text-mochero-dark hover:bg-white rounded shadow-sm transition font-bold">-</button>
+                                    <span class="text-sm font-semibold w-4 text-center text-mochero-dark">${item.quantity}</span>
+                                    <button onclick="updateQuantity('${item.id}', 1)" class="w-6 h-6 flex items-center justify-center text-mochero-dark hover:bg-white rounded shadow-sm transition font-bold">+</button>
+                                </div>
+                            </div>
+                            <button onclick="updateQuantity('${item.id}', -${item.quantity})" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition p-1 bg-gray-50 rounded-full w-8 h-8 flex items-center justify-center">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+
+            // Actualizar Badge en el menú superior
+            countBadge.innerText = totalItems;
+            if (totalItems > 0) {
+                countBadge.classList.remove('hidden');
+            } else {
+                countBadge.classList.add('hidden');
+            }
+            
+            // Actualizar Total
+            totalEl.innerText = `S/ ${total.toFixed(2)}`;
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                // Si intenta comprar vacío, lo mandamos a la tienda de forma amigable
+                alert("Tu carrito está vacío. Agrega algunos productos antes de comprar.");
+                toggleCart();
+                showSection('productos');
+                return;
+            }
+            
+            const phoneNumber = "51995594882";
+            let message = "¡Hola La Casa del Ají Mochero! 🌶️%0A%0A";
+            message += "Vengo de la página web y me gustaría realizar el siguiente pedido:%0A%0A";
+            
+            let total = 0;
+            
+            cart.forEach(item => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                message += `▪️ ${item.quantity}x ${item.name} - (S/ ${subtotal.toFixed(2)})%0A`;
+            });
+            
+            message += `%0A*Total estimado: S/ ${total.toFixed(2)}*%0A%0A`;
+            message += "Por favor, indíquenme los métodos de pago y para coordinar la entrega. ¡Gracias!";
+            
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+            
+            // Abrir WhatsApp en nueva pestaña
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Llamar a update UI al iniciar por si recargamos la página (estado vacío)
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartUI();
+        });
+        // --- FIN LÓGICA DEL CARRITO ---
+
+        // NUEVO: Observador para la animación de la línea de tiempo
+        const timelineObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Pequeño retraso para que se vea más natural
+                    setTimeout(() => {
+                        entry.target.classList.remove('opacity-0', 'translate-y-12');
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                    }, 100);
+                    observer.unobserve(entry.target); // Solo anima una vez por visita a la pestaña
+                }
+            });
+        }, { threshold: 0.2 });
+
+        // Lista actualizada de todas las secciones disponibles
+        const sections = ['inicio', 'historia', 'nosotros', 'encuentranos', 'recorridos', 'productos'];
+
+        // Función principal para cambiar de "página"
+        function showSection(sectionId) {
+            // 1. Ocultar todas las secciones
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.remove('section-visible');
+                    el.classList.add('section-hidden');
+                }
+            });
+
+            // 2. Mostrar la sección seleccionada
+            const targetEl = document.getElementById(sectionId);
+            if (targetEl) {
+                // Pequeño timeout para permitir que la clase hidden actúe antes de mostrar
+                setTimeout(() => {
+                    targetEl.classList.remove('section-hidden');
+                    targetEl.classList.add('section-visible');
+
+                    // NUEVO: Lógica para reiniciar y activar la animación en "historia"
+                    if (sectionId === 'historia') {
+                        const timelineItems = document.querySelectorAll('.timeline-item');
+                        timelineItems.forEach(item => {
+                            // Ocultamos todo primero al entrar
+                            item.classList.add('opacity-0', 'translate-y-12');
+                            item.classList.remove('opacity-100', 'translate-y-0');
+                            // Empezamos a observar si hacemos scroll
+                            timelineObserver.observe(item);
+                        });
+                    }
+
+                }, 50);
+            }
+
+            // 3. Actualizar estado del menú (subrayado/activo) en Desktop
+            sections.forEach(id => {
+                const navLink = document.getElementById(`nav-${id}`);
+                if (navLink) {
+                    if (id === sectionId) {
+                        navLink.classList.add('active');
+                    } else {
+                        navLink.classList.remove('active');
+                    }
+                }
+            });
+
+            // 4. Hacer scroll automático suave hacia arriba si se navega a otra sección
+            // (Excluyendo 'inicio' para que no sea un salto brusco si ya estás arriba)
+            if (sectionId !== 'inicio') {
+                 window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Lógica para el menú móvil
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Función para cerrar el menú móvil al hacer clic en una opción
+        function closeMobileMenu() {
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+
+        // Inicializar mostrando la sección 'inicio' por defecto
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection('inicio');
+        });
+    </script>
+</body>
+</html>
