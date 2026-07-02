@@ -381,55 +381,124 @@
         <!-- SECCIÓN: RECORRIDOS -->
         <section id="recorridos" class="section-hidden max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 border-t border-mochero-light">
             <div class="text-center mb-12">
-                <h2 class="font-serif text-4xl md:text-5xl text-mochero-dark mb-4">Los Recorridos</h2>
+                <h2 class="font-serif text-4xl md:text-5xl text-mochero-dark mb-4">Nuestros Recorridos</h2>
                 <div class="h-1 w-24 bg-mochero-brown mx-auto rounded-full mb-6"></div>
-                <p class="text-gray-700 max-w-3xl mx-auto text-lg">Información detallada e imágenes para promocionar nuestro tour. Sumérgete en la campiña, camina entre los cultivos y descubre los secretos de nuestra labor.</p>
+                <p class="text-gray-700 max-w-3xl mx-auto text-lg">Conoce la riqueza agrícola Mochica a través de nuestras experiencias diseñadas para ti.</p>
             </div>
 
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-mochero-light">
-                <div class="md:flex">
-                    <div class="md:shrink-0 md:w-1/2 relative">
-                        <img class="h-full w-full object-cover md:absolute inset-0" src="https://i.postimg.cc/v8nxJWYy/Recorrido.jpg" alt="Turistas en la campiña">
-                        <div class="absolute top-4 right-4 bg-mochero-gold text-white font-bold py-1 px-3 rounded-full text-sm font-sans">
-                            Tour Más Popular
-                        </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Opción 1: Visita Corta -->
+                <div class="bg-white rounded-2xl shadow-lg border border-mochero-light overflow-hidden flex flex-col group relative">
+                    <div class="p-8 flex-grow flex flex-col">
+                        <div class="uppercase tracking-wide text-sm text-mochero-gold font-semibold mb-1">20 a 30 minutos</div>
+                        <h3 class="block mt-1 text-2xl leading-tight font-serif text-mochero-dark mb-2">Visita a la Casa del Ají</h3>
+                        <p class="text-mochero-brown font-bold text-xl mb-4">S/ 3.00 <span class="text-sm font-normal text-gray-500">por persona</span></p>
+                        <p class="mt-2 text-gray-600 mb-5 flex-grow">
+                            Exposición sobre la recuperación agrícola Mochica, breve recorrido por huertos frutales y exhibición/venta de productos frescos.
+                        </p>
+                        <button onclick="toggleFormulario('form-tour1')" class="w-full bg-mochero-dark hover:bg-mochero-brown text-white font-semibold py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center gap-2">
+                            <i class="fas fa-sliders-h text-lg"></i> Configurar
+                        </button>
                     </div>
-                    <div class="p-8 md:w-1/2 flex flex-col justify-center">
-                        <div class="uppercase tracking-wide text-sm text-mochero-gold font-semibold mb-1">Ruta Agroturística</div>
-                        <h3 class="block mt-1 text-2xl leading-tight font-serif text-mochero-dark hover:underline">Del Campo a la Mesa</h3>
-                        <p class="mt-4 text-gray-600 mb-5">
-                            Un recorrido de 3 horas donde aprenderás sobre la historia Moche, participarás en la cosecha (según temporada) y finalizarás con una cata exclusiva de todos nuestros productos derivados del ají mochero.
+                    
+                    <!-- Formulario Oculto Tour 1 -->
+                    <div id="form-tour1" class="absolute inset-0 bg-white p-6 flex flex-col justify-center hidden z-10 transition-all duration-300 border-2 border-mochero-gold rounded-2xl">
+                        <h4 class="font-serif text-xl text-mochero-dark mb-4 font-bold text-center">Detalles de tu visita</h4>
+                        
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Cantidad de personas</label>
+                        <input type="number" id="tour1-cantidad" min="1" value="1" class="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-mochero-gold">
+                        
+                        <p class="text-xs text-mochero-brown font-medium mb-4 text-center bg-mochero-light p-2 rounded">
+                            <i class="fas fa-info-circle"></i> La fecha y horario se coordinarán por WhatsApp.
                         </p>
                         
-                        <!-- Frase de apoyo al legado -->
-                        <div class="bg-mochero-gold/10 border-l-4 border-mochero-gold p-4 mb-5 rounded-r-lg shadow-sm">
-                            <p class="text-mochero-dark font-medium italic text-sm">
-                                "Al ir a nuestros recorridos nos ayudas a seguir manteniendo nuestro legado ancestral y compartiéndolo con el mundo."
-                            </p>
-                        </div>
-                        
-                        <div class="space-y-3">
-                            <div class="flex items-center text-gray-700">
-                                <i class="far fa-clock text-mochero-brown w-6 text-center mr-2"></i>
-                                <span>Duración: 3 Horas</span>
-                            </div>
-                            <div class="flex items-center text-gray-700">
-                                <i class="fas fa-users text-mochero-brown w-6 text-center mr-2"></i>
-                                <span>Grupos: Min 2 - Max 15 personas</span>
-                            </div>
-                            <div class="flex items-center text-gray-700">
-                                <i class="fas fa-calendar-alt text-mochero-brown w-6 text-center mr-2"></i>
-                                <span>Días: Martes a Domingo (Previa reserva)</span>
-                            </div>
-                        </div>
-
-                        <div class="mt-8">
-                            <a href="https://wa.me/51995594882" target="_blank" class="inline-block bg-mochero-dark hover:bg-mochero-brown text-white font-semibold py-3 px-6 rounded-lg transition duration-300 w-full md:w-auto shadow-md text-center">
-                                <i class="fab fa-whatsapp mr-2"></i> Reservar por WhatsApp
-                            </a>
+                        <div class="flex gap-2 mt-auto">
+                            <button onclick="toggleFormulario('form-tour1')" class="w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 rounded-lg transition">
+                                Volver
+                            </button>
+                            <button onclick="enviarWhatsAppTourNormal('Visita Corta a la Casa del Ají', 'tour1-cantidad', 'form-tour1')" class="w-2/3 bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold py-2 rounded-lg transition flex items-center justify-center gap-2 shadow-md">
+                                <i class="fab fa-whatsapp text-lg"></i> Continuar
+                            </button>
                         </div>
                     </div>
                 </div>
+
+                <!-- Opción 2: Full Day -->
+                <div class="bg-white rounded-2xl shadow-lg border border-mochero-light overflow-hidden flex flex-col group relative">
+                    <div class="p-8 flex-grow flex flex-col">
+                        <div class="uppercase tracking-wide text-sm text-mochero-gold font-semibold mb-1">2 horas</div>
+                        <h3 class="block mt-1 text-2xl leading-tight font-serif text-mochero-dark mb-2">Experiencia Full Day</h3>
+                        <p class="text-mochero-brown font-bold text-xl mb-4">S/ 6.00 <span class="text-sm font-normal text-gray-500">por persona</span></p>
+                        <p class="mt-2 text-gray-600 mb-5 flex-grow">
+                            Recorrido por el campo (Sector La Barranca), participación activa en la cosecha de temporada y visita final a la Casa del Ají.
+                        </p>
+                        <button onclick="toggleFormulario('form-tour2')" class="w-full bg-mochero-dark hover:bg-mochero-brown text-white font-semibold py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center gap-2">
+                            <i class="fas fa-sliders-h text-lg"></i> Configurar
+                        </button>
+                    </div>
+
+                    <!-- Formulario Oculto Tour 2 -->
+                    <div id="form-tour2" class="absolute inset-0 bg-white p-6 flex flex-col justify-center hidden z-10 transition-all duration-300 border-2 border-mochero-gold rounded-2xl">
+                        <h4 class="font-serif text-xl text-mochero-dark mb-4 font-bold text-center">Detalles de tu visita</h4>
+                        
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Cantidad de personas</label>
+                        <input type="number" id="tour2-cantidad" min="1" value="1" class="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-mochero-gold">
+                        
+                        <p class="text-xs text-mochero-brown font-medium mb-4 text-center bg-mochero-light p-2 rounded">
+                            <i class="fas fa-info-circle"></i> La fecha y horario se coordinarán por WhatsApp.
+                        </p>
+                        
+                        <div class="flex gap-2 mt-auto">
+                            <button onclick="toggleFormulario('form-tour2')" class="w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 rounded-lg transition">
+                                Volver
+                            </button>
+                            <button onclick="enviarWhatsAppTourNormal('Experiencia Full Day en el Campo', 'tour2-cantidad', 'form-tour2')" class="w-2/3 bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold py-2 rounded-lg transition flex items-center justify-center gap-2 shadow-md">
+                                <i class="fab fa-whatsapp text-lg"></i> Continuar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Opción 3: Atención a Medida -->
+                <div class="bg-white rounded-2xl shadow-lg border border-mochero-light overflow-hidden flex flex-col group relative">
+                    <div class="p-8 flex-grow flex flex-col">
+                        <div class="uppercase tracking-wide text-sm text-mochero-gold font-semibold mb-1">Mínimo 3 personas</div>
+                        <h3 class="block mt-1 text-2xl leading-tight font-serif text-mochero-dark mb-2">Atención a Medida</h3>
+                        <p class="text-mochero-brown font-bold text-xl mb-4">S/ 15.00 <span class="text-sm font-normal text-gray-500">por persona</span></p>
+                        <p class="mt-2 text-gray-600 mb-5 flex-grow">
+                            Recorrido especializado y adaptado a los requerimientos específicos de tu grupo o institución.
+                        </p>
+                        <button onclick="toggleFormulario('form-grupos')" class="w-full bg-mochero-gold hover:bg-yellow-600 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 flex items-center justify-center gap-2">
+                            <i class="fas fa-sliders-h text-lg"></i> Configurar
+                        </button>
+                    </div>
+                    
+                    <!-- Formulario Oculto Tour 3 (Grupos) -->
+                    <div id="form-grupos" class="absolute inset-0 bg-white p-6 flex flex-col justify-center hidden z-10 transition-all duration-300 border-2 border-mochero-gold rounded-2xl">
+                        <h4 class="font-serif text-xl text-mochero-dark mb-4 font-bold text-center">Detalles de tu grupo</h4>
+                        
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Cantidad (Mín. 3)</label>
+                        <input type="number" id="grupo-cantidad" min="3" value="3" class="w-full mb-3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-mochero-gold">
+                        
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Institución / Procedencia</label>
+                        <input type="text" id="grupo-institucion" placeholder="Ej. Universidad, Colegio..." class="w-full mb-3 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-mochero-gold">
+                        
+                        <p class="text-[10px] text-mochero-brown font-medium mb-3 text-center bg-mochero-light p-1.5 rounded">
+                            <i class="fas fa-info-circle"></i> El horario se coordinará en WhatsApp.
+                        </p>
+                        
+                        <div class="flex gap-2 mt-auto">
+                            <button onclick="toggleFormulario('form-grupos')" class="w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 rounded-lg transition">
+                                Volver
+                            </button>
+                            <button onclick="enviarWhatsAppGrupos()" class="w-2/3 bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold py-2 rounded-lg transition flex items-center justify-center gap-2 shadow-md">
+                                <i class="fab fa-whatsapp text-lg"></i> Continuar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -855,10 +924,61 @@
             }
         }
 
-        // Inicializar mostrando la sección 'inicio' por defecto
-        document.addEventListener('DOMContentLoaded', () => {
-            showSection('inicio');
-        });
+       // --- LÓGICA DE RESERVA DE RECORRIDOS ---
+        const numeroWhatsAppRecorridos = "51995594882"; // Número configurado en tu footer actual
+
+        // Función general para mostrar/ocultar CUALQUIER formulario de tours
+        function toggleFormulario(idFormulario) {
+            const form = document.getElementById(idFormulario);
+            form.classList.toggle('hidden');
+        }
+
+        // Función para enviar WhatsApp de los Tours Normales (Opciones 1 y 2)
+        function enviarWhatsAppTourNormal(nombreTour, idInputCantidad, idFormulario) {
+            const cantidad = document.getElementById(idInputCantidad).value;
+            
+            if(cantidad < 1) {
+                alert("Por favor, ingresa al menos 1 persona.");
+                return;
+            }
+
+            let mensaje = `¡Hola La Casa del Ají Mochero! 🌶️%0A%0A`;
+            mensaje += `Deseo reservar el recorrido: *${nombreTour}*.%0A%0A`;
+            mensaje += `👥 *Para:* ${cantidad} persona(s)%0A%0A`;
+            mensaje += `Quedo a la espera por este medio para coordinar la fecha y hora de nuestra visita. ¡Gracias!`;
+
+            window.open(`https://wa.me/${numeroWhatsAppRecorridos}?text=${mensaje}`, '_blank');
+            
+            // Ocultar el formulario después de dar clic
+            toggleFormulario(idFormulario);
+        }
+
+        // Función para recolectar los datos de la Opción 3 (Grupos) y enviarlos
+        function enviarWhatsAppGrupos() {
+            const cantidad = document.getElementById('grupo-cantidad').value;
+            const institucion = document.getElementById('grupo-institucion').value;
+            
+            if(cantidad < 3) {
+                alert("La experiencia a medida requiere un mínimo de 3 personas.");
+                return;
+            }
+            
+            if(institucion.trim() === '') {
+                alert("Por favor, indícanos de qué institución o grupo nos visitan.");
+                return;
+            }
+
+            let mensaje = `¡Hola La Casa del Ají Mochero! 🌶️%0A%0A`;
+            mensaje += `Deseo solicitar el servicio de *Atención a Medida (Grupos)*.%0A%0A`;
+            mensaje += `👥 *Cantidad de personas:* ${cantidad}%0A`;
+            mensaje += `🏛️ *Institución/Procedencia:* ${institucion}%0A%0A`;
+            mensaje += `Quedo a la espera por este medio para coordinar el horario y la fecha exacta de nuestra visita. ¡Gracias!`;
+
+            window.open(`https://wa.me/${numeroWhatsAppRecorridos}?text=${mensaje}`, '_blank');
+            
+            // Ocultar formulario después de enviar
+            toggleFormulario('form-grupos');
+        }
     </script>
 </body>
 </html>
