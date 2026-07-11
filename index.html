@@ -406,8 +406,8 @@
                     <div id="form-tour1" class="absolute inset-0 bg-white p-6 flex flex-col justify-center hidden z-10 transition-all duration-300 border-2 border-mochero-gold rounded-2xl">
                         <h4 class="font-serif text-xl text-mochero-dark mb-4 font-bold text-center">Detalles de tu visita</h4>
                         
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Cantidad de personas</label>
-                        <input type="number" id="tour1-cantidad" min="1" value="1" class="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-mochero-gold">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Cantidad (Mín. 25)</label>
+                        <input type="number" id="tour1-cantidad" min="25" value="25" class="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-mochero-gold">
                         
                         <p class="text-xs text-mochero-brown font-medium mb-4 text-center bg-mochero-light p-2 rounded">
                             <i class="fas fa-info-circle"></i> La fecha y horario se coordinarán por WhatsApp.
@@ -417,7 +417,8 @@
                             <button onclick="toggleFormulario('form-tour1')" class="w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 rounded-lg transition">
                                 Volver
                             </button>
-                            <button onclick="enviarWhatsAppTourNormal('Visita Corta a la Casa del Ají', 'tour1-cantidad', 'form-tour1')" class="w-2/3 bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold py-2 rounded-lg transition flex items-center justify-center gap-2 shadow-md">
+                            <!-- Pasamos el valor numérico 3 (el precio) al final de la función -->
+                            <button onclick="enviarWhatsAppTourNormal('Visita Corta a la Casa del Ají', 'tour1-cantidad', 'form-tour1', 3)" class="w-2/3 bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold py-2 rounded-lg transition flex items-center justify-center gap-2 shadow-md">
                                 <i class="fab fa-whatsapp text-lg"></i> Continuar
                             </button>
                         </div>
@@ -442,8 +443,8 @@
                     <div id="form-tour2" class="absolute inset-0 bg-white p-6 flex flex-col justify-center hidden z-10 transition-all duration-300 border-2 border-mochero-gold rounded-2xl">
                         <h4 class="font-serif text-xl text-mochero-dark mb-4 font-bold text-center">Detalles de tu visita</h4>
                         
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Cantidad de personas</label>
-                        <input type="number" id="tour2-cantidad" min="1" value="1" class="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-mochero-gold">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Cantidad (Mín. 15)</label>
+                        <input type="number" id="tour2-cantidad" min="15" value="15" class="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-mochero-gold">
                         
                         <p class="text-xs text-mochero-brown font-medium mb-4 text-center bg-mochero-light p-2 rounded">
                             <i class="fas fa-info-circle"></i> La fecha y horario se coordinarán por WhatsApp.
@@ -453,7 +454,8 @@
                             <button onclick="toggleFormulario('form-tour2')" class="w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 rounded-lg transition">
                                 Volver
                             </button>
-                            <button onclick="enviarWhatsAppTourNormal('Experiencia Full Day en el Campo', 'tour2-cantidad', 'form-tour2')" class="w-2/3 bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold py-2 rounded-lg transition flex items-center justify-center gap-2 shadow-md">
+                            <!-- Pasamos el valor numérico 6 (el precio) al final de la función -->
+                            <button onclick="enviarWhatsAppTourNormal('Experiencia Full Day en el Campo', 'tour2-cantidad', 'form-tour2', 6)" class="w-2/3 bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold py-2 rounded-lg transition flex items-center justify-center gap-2 shadow-md">
                                 <i class="fab fa-whatsapp text-lg"></i> Continuar
                             </button>
                         </div>
@@ -535,9 +537,9 @@
                     </div>
                     <div class="p-6 flex-grow flex flex-col">
                         <h3 class="font-serif text-xl font-bold text-mochero-dark mb-1">Chocotejas Mocheras</h3>
-                        <p class="text-mochero-brown font-bold text-lg mb-2">S/ 50.00 <span class="text-xs text-gray-500 font-normal">(Caja x12)</span></p>
+                        <p class="text-mochero-brown font-bold text-lg mb-2">S/ 2.50 <span class="text-xs text-gray-500 font-normal">(1 unidad)</span></p>
                         <p class="text-gray-600 text-sm mb-4 flex-grow">El dulzor del manjar blanco y el chocolate bitter contrastan sorprendentemente con un toque de mermelada de ají mochero.</p>
-                        <button onclick="addToCart('p2', 'Chocotejas Mocheras (Caja x12)', 50.00, 'https://i.postimg.cc/ZRwpdHb0/Chat-GPT-Image-27-jun-2026-00-36-55.png')" class="mt-auto bg-mochero-dark text-white hover:bg-mochero-brown font-semibold py-2 px-4 rounded transition duration-300 flex items-center justify-center gap-2">
+                        <button onclick="addToCart('p2', 'Chocotejas Mocheras (1 unidad)', 2.50, 'https://i.postimg.cc/ZRwpdHb0/Chat-GPT-Image-27-jun-2026-00-36-55.png')" class="mt-auto bg-mochero-dark text-white hover:bg-mochero-brown font-semibold py-2 px-4 rounded transition duration-300 flex items-center justify-center gap-2">
                             <i class="fas fa-cart-plus"></i> Añadir al carrito
                         </button>
                     </div>
@@ -550,9 +552,9 @@
                     </div>
                     <div class="p-6 flex-grow flex flex-col">
                         <h3 class="font-serif text-xl font-bold text-mochero-dark mb-1">Polvito de Ají</h3>
-                        <p class="text-mochero-brown font-bold text-lg mb-2">S/ 15.00</p>
+                        <p class="text-mochero-brown font-bold text-lg mb-2">S/ 5.00</p>
                         <p class="text-gray-600 text-sm mb-4 flex-grow">Ají deshidratado y molido artesanalmente. Ideal para espolvorear sobre ceviches, guisos o frutas.</p>
-                        <button onclick="addToCart('p3', 'Polvito de Ají', 15.00, 'https://i.postimg.cc/s26gPNhw/Chat-GPT-Image-27-jun-2026-00-29-34.png')" class="mt-auto bg-mochero-dark text-white hover:bg-mochero-brown font-semibold py-2 px-4 rounded transition duration-300 flex items-center justify-center gap-2">
+                        <button onclick="addToCart('p3', 'Deshidratado de Ají Mochero en Polvo', 5.00, 'https://i.postimg.cc/s26gPNhw/Chat-GPT-Image-27-jun-2026-00-29-34.png')" class="mt-auto bg-mochero-dark text-white hover:bg-mochero-brown font-semibold py-2 px-4 rounded transition duration-300 flex items-center justify-center gap-2">
                             <i class="fas fa-cart-plus"></i> Añadir al carrito
                         </button>
                     </div>
@@ -565,13 +567,33 @@
                     </div>
                     <div class="p-6 flex-grow flex flex-col">
                         <h3 class="font-serif text-xl font-bold text-mochero-dark mb-1">Encurtido de Ají Mochero</h3>
-                        <p class="text-mochero-brown font-bold text-lg mb-2">S/ 18.00</p>
+                        <p class="text-mochero-brown font-bold text-lg mb-2">S/ 10.00</p>
                         <p class="text-gray-600 text-sm mb-4 flex-grow">Conserva que mantiene intacto el ADN y el picor del sabor mochica. Perfecto para acompañar tus comidas diarias.</p>
-                        <button onclick="addToCart('p4', 'Encurtido de Ají Mochero', 18.00, 'https://i.postimg.cc/nrJxsjFB/Chat-GPT-Image-27-jun-2026-14-53-04.png')" class="mt-auto bg-mochero-dark text-white hover:bg-mochero-brown font-semibold py-2 px-4 rounded transition duration-300 flex items-center justify-center gap-2">
+                        <button onclick="addToCart('p4', 'Encurtido de Ají Mochero', 10.00, 'https://i.postimg.cc/nrJxsjFB/Chat-GPT-Image-27-jun-2026-14-53-04.png')" class="mt-auto bg-mochero-dark text-white hover:bg-mochero-brown font-semibold py-2 px-4 rounded transition duration-300 flex items-center justify-center gap-2">
                             <i class="fas fa-cart-plus"></i> Añadir al carrito
                         </button>
                     </div>
                 </div>
+<!-- Producto 5: Caja de Chocotejas (Próximamente) -->
+                <div class="bg-white rounded-xl shadow-md border border-mochero-light overflow-hidden flex flex-col group opacity-90">
+                    <div class="h-64 bg-gray-100 relative overflow-hidden flex items-center justify-center">
+                        <!-- Añadimos un pequeño filtro gris a la imagen para denotar inactividad -->
+                        <img src="https://i.postimg.cc/CLn8px4f/6aa25e4a-a857-4853-8a2e-5157e16d6d36.png" alt="Chocotejas de ají" class="w-full h-full object-cover grayscale-[30%]">
+                        <!-- Etiqueta superior izquierda -->
+                        <div class="absolute top-2 left-2 bg-gray-600 text-white text-xs font-bold px-2 py-1 rounded shadow">Próximamente</div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="font-serif text-xl font-bold text-gray-500 mb-1">Caja de Chocotejas Mocheras</h3>
+                        <p class="text-gray-400 font-bold text-lg mb-2">S/ 50.00 <span class="text-xs font-normal">(Caja x 12 unidades)</span></p>
+                        <p class="text-gray-500 text-sm mb-4 flex-grow">El dulzor del manjar blanco y el chocolate bitter contrastan sorprendentemente con un toque de mermelada de ají mochero.</p>
+                        
+                        <!-- Botón deshabilitado sin onclick -->
+                        <button disabled class="mt-auto bg-gray-300 text-gray-600 font-semibold py-2 px-4 rounded cursor-not-allowed flex items-center justify-center gap-2">
+                            <i class="fas fa-clock"></i> Próximamente
+                        </button>
+                    </div>
+                </div>
+
 
             </div>
         </section>
@@ -615,13 +637,13 @@
                 <div class="text-center md:text-left">
                     <h3 class="font-bold text-lg mb-4 text-mochero-light border-b border-gray-600 pb-2 inline-block md:block">Conéctate</h3>
                     <div class="flex space-x-4 justify-center md:justify-start mb-6">
-                        <a href="https://www.facebook.com/" target="_blank" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white hover:bg-mochero-gold transition duration-300">
+                        <a href="https://www.facebook.com/LaCasadelAjiMochero" target="_blank" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white hover:bg-mochero-gold transition duration-300">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a href="https://www.instagram.com/lacasadelajimochero" target="_blank" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white hover:bg-mochero-gold transition duration-300">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://www.tiktok.com/" target="_blank" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white hover:bg-mochero-gold transition duration-300">
+                        <a href="https://www.tiktok.com/@lacasadelajimochero" target="_blank" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white hover:bg-mochero-gold transition duration-300">
                             <i class="fab fa-tiktok"></i>
                         </a>
                         <a href="https://wa.me/51995594882" target="_blank" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white hover:bg-green-500 transition duration-300">
@@ -934,23 +956,64 @@
         }
 
         // Función para enviar WhatsApp de los Tours Normales (Opciones 1 y 2)
-        function enviarWhatsAppTourNormal(nombreTour, idInputCantidad, idFormulario) {
-            const cantidad = document.getElementById(idInputCantidad).value;
+        function enviarWhatsAppTourNormal(nombreTour, idInputCantidad, idFormulario, precioPorPersona) {
+            const cantidad = parseInt(document.getElementById(idInputCantidad).value);
             
-            if(cantidad < 1) {
-                alert("Por favor, ingresa al menos 1 persona.");
+            // Asignar el mínimo dinámicamente según el formulario
+            let minimo = 1;
+            if(idFormulario === 'form-tour1') minimo = 25;
+            if(idFormulario === 'form-tour2') minimo = 15;
+
+            if(cantidad < minimo) {
+                alert(`Por favor, ingresa al menos ${minimo} personas para este recorrido.`);
                 return;
             }
 
+            // Cálculo del Total
+            const total = (cantidad * precioPorPersona).toFixed(2);
+
             let mensaje = `¡Hola La Casa del Ají Mochero! 🌶️%0A%0A`;
             mensaje += `Deseo reservar el recorrido: *${nombreTour}*.%0A%0A`;
-            mensaje += `👥 *Para:* ${cantidad} persona(s)%0A%0A`;
+            mensaje += `👥 *Para:* ${cantidad} persona(s)%0A`;
+            mensaje += `💰 *Total estimado:* S/ ${total}%0A%0A`;
             mensaje += `Quedo a la espera por este medio para coordinar la fecha y hora de nuestra visita. ¡Gracias!`;
 
             window.open(`https://wa.me/${numeroWhatsAppRecorridos}?text=${mensaje}`, '_blank');
             
             // Ocultar el formulario después de dar clic
             toggleFormulario(idFormulario);
+        }
+
+        // Función para recolectar los datos de la Opción 3 (Grupos) y enviarlos
+        function enviarWhatsAppGrupos() {
+            const cantidad = parseInt(document.getElementById('grupo-cantidad').value);
+            const institucion = document.getElementById('grupo-institucion').value;
+            
+            if(cantidad < 3) {
+                alert("La experiencia a medida requiere un mínimo de 3 personas.");
+                return;
+            }
+            
+            if(institucion.trim() === '') {
+                alert("Por favor, indícanos de qué institución o grupo nos visitan.");
+                return;
+            }
+
+            // Cálculo del Total para el grupo a medida (S/ 15.00 x Persona)
+            const precioPorPersona = 15.00;
+            const total = (cantidad * precioPorPersona).toFixed(2);
+
+            let mensaje = `¡Hola La Casa del Ají Mochero! 🌶️%0A%0A`;
+            mensaje += `Deseo solicitar el servicio de *Atención a Medida (Grupos)*.%0A%0A`;
+            mensaje += `👥 *Cantidad de personas:* ${cantidad}%0A`;
+            mensaje += `🏛️ *Institución/Procedencia:* ${institucion}%0A`;
+            mensaje += `💰 *Total estimado:* S/ ${total}%0A%0A`;
+            mensaje += `Quedo a la espera por este medio para coordinar el horario y la fecha exacta de nuestra visita. ¡Gracias!`;
+
+            window.open(`https://wa.me/${numeroWhatsAppRecorridos}?text=${mensaje}`, '_blank');
+            
+            // Ocultar formulario después de enviar
+            toggleFormulario('form-grupos');
         }
 
         // Función para recolectar los datos de la Opción 3 (Grupos) y enviarlos
